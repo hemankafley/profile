@@ -10,7 +10,7 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
-  { label: "Credentials", href: "#certifications" },
+  { label: "Certifications", href: "#certifications" },
   { label: "Education", href: "#education" },
 ]
 
@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
             >
               <a href="#contact">
                 <span className="status-dot bg-[#1a1205]" />
-                Open a channel
+                Let's Connect
               </a>
             </Button>
           </div>
@@ -93,7 +93,7 @@ export const Navbar: React.FC = () => {
               size="sm"
               className="mb-1 font-mono text-[13px] rounded-md bg-[#f5b04c] text-[#1a1205] hover:bg-[#f5b04c]/90"
             >
-              <a href="#contact">Open a channel</a>
+              <a href="#contact">Let's Connect</a>
             </Button>
           </div>
         </div>

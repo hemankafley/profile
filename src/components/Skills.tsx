@@ -46,7 +46,7 @@ export const Skills: React.FC = () => {
     <SectionShell
       id="skills"
       title="Skills"
-      tagline="~ skills --installed — an instrumented capability set"
+      tagline="the tools and technologies I work with every day"
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {skillCategories.map((category) => (

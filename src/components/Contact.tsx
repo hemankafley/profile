@@ -1,6 +1,12 @@
 import * as React from "react"
 import { useState } from "react"
-import { Mail, Briefcase as LinkedinIcon, Code as GithubIcon, Send } from "lucide-react"
+import {
+  Mail,
+  Briefcase as LinkedinIcon,
+  Code as GithubIcon,
+  Send,
+  Loader2,
+} from "lucide-react"
 
 import { SectionShell } from "./SectionShell"
 import { Button } from "./ui/button"
@@ -8,6 +14,8 @@ import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { Textarea } from "./ui/textarea"
 import { cn } from "../lib/utils"
+
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/hemankafley@gmail.com"
 
 const channels = [
   {
@@ -30,13 +38,14 @@ const channels = [
   },
 ]
 
-type Status = "idle" | "success" | "error"
+type Status = "idle" | "sending" | "success" | "error"
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
+    honey: "",
   })
   const [submitStatus, setSubmitStatus] = useState<Status>("idle")
 
@@ -47,15 +56,46 @@ export const Contact: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (formData.name && formData.email && formData.message) {
-      setSubmitStatus("success")
-      setFormData({ name: "", email: "", message: "" })
-      setTimeout(() => setSubmitStatus("idle"), 5000)
-    } else {
+
+    // Client-side validation
+    if (!formData.name || !formData.email || !formData.message) {
       setSubmitStatus("error")
-      setTimeout(() => setSubmitStatus("idle"), 5000)
+      setTimeout(() => setSubmitStatus("idle"), 6000)
+      return
+    }
+
+    setSubmitStatus("sending")
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _honey: formData.honey,
+          _subject: `Portfolio message from ${formData.name}`,
+          _template: "table",
+          _captcha: "false",
+        }),
+      })
+
+      if (res.ok) {
+        setSubmitStatus("success")
+        setFormData({ name: "", email: "", message: "", honey: "" })
+        setTimeout(() => setSubmitStatus("idle"), 7000)
+      } else {
+        setSubmitStatus("error")
+        setTimeout(() => setSubmitStatus("idle"), 7000)
+      }
+    } catch {
+      setSubmitStatus("error")
+      setTimeout(() => setSubmitStatus("idle"), 7000)
     }
   }
 
@@ -66,7 +106,7 @@ export const Contact: React.FC = () => {
     <SectionShell
       id="contact"
       title="Contact"
-      tagline="~ connect --open-channel — let's talk reliability, backend, or SRE"
+      tagline="let's talk about backend, reliability, or SRE"
     >
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         {/* Channels */}
@@ -108,6 +148,18 @@ export const Contact: React.FC = () => {
           </h3>
 
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Honeypot — hidden from humans, catches bots */}
+            <input
+              type="text"
+              name="honey"
+              value={formData.honey}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+              aria-hidden="true"
+            />
+
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
               <Input
@@ -119,6 +171,7 @@ export const Contact: React.FC = () => {
                 className={inputCls}
                 placeholder="Your name"
                 required
+                disabled={submitStatus === "sending"}
               />
             </div>
 
@@ -133,6 +186,7 @@ export const Contact: React.FC = () => {
                 className={inputCls}
                 placeholder="your.email@example.com"
                 required
+                disabled={submitStatus === "sending"}
               />
             </div>
 
@@ -147,6 +201,7 @@ export const Contact: React.FC = () => {
                 placeholder="Your message..."
                 rows={5}
                 required
+                disabled={submitStatus === "sending"}
               />
             </div>
 
@@ -155,6 +210,8 @@ export const Contact: React.FC = () => {
               className={cn(
                 "rounded-md border px-4 py-3 font-mono text-[13px]",
                 "transition-all",
+                submitStatus === "sending" &&
+                  "border-[#5bc3e0]/50 bg-[#5bc3e0]/10 text-[#5bc3e0]",
                 submitStatus === "success" &&
                   "border-[#4caf7d]/50 bg-[#4caf7d]/10 text-[#4caf7d]",
                 submitStatus === "error" &&
@@ -162,16 +219,27 @@ export const Contact: React.FC = () => {
                 submitStatus === "idle" && "hidden"
               )}
             >
-              {submitStatus === "success"
-                ? "✓ message queued — I'll get back to you soon."
-                : "✗ failed — all fields are required."}
+              {submitStatus === "sending" && "⏳ sending your message…"}
+              {submitStatus === "success" &&
+                "✓ message sent — I'll get back to you soon."}
+              {submitStatus === "error" &&
+                "✗ something went wrong — please email me directly at hemankafley@gmail.com."}
             </div>
 
             <Button
               type="submit"
-              className="h-11 w-full rounded-md font-mono text-sm bg-[#f5b04c] text-[#1a1205] hover:bg-[#f5b04c]/90"
+              disabled={submitStatus === "sending"}
+              className="h-11 w-full rounded-md font-mono text-sm bg-[#f5b04c] text-[#1a1205] hover:bg-[#f5b04c]/90 disabled:opacity-70"
             >
-              <Send className="size-4" /> send message
+              {submitStatus === "sending" ? (
+                <>
+                  <Loader2 className="size-4 animate-spin" /> sending…
+                </>
+              ) : (
+                <>
+                  <Send className="size-4" /> send message
+                </>
+              )}
             </Button>
           </form>
         </div>
