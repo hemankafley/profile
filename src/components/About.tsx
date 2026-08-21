@@ -26,7 +26,7 @@ export const About: React.FC = () => {
     <SectionShell
       id="about"
       title="About"
-      tagline="~ whoami — the engineer behind the uptime"
+      tagline="who I am and what I care about building"
     >
       <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
         {/* Narrative */}

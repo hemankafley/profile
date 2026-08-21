@@ -8,7 +8,7 @@ export const Education: React.FC = () => {
     <SectionShell
       id="education"
       title="Education"
-      tagline="~ education --summary — foundation in computer science"
+      tagline="my academic background in computer science"
     >
       <div className="console-panel max-w-2xl p-6 sm:p-8">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
