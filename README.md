@@ -1,79 +1,49 @@
-# Hayti Kafley - Professional Software Engineer Portfolio
+# Hayti Kafley — Software Engineer Portfolio
 
-A modern, dark-themed professional portfolio website built with React, TypeScript, Tailwind CSS, and Vite. Designed to showcase software engineering expertise, technical skills, and professional experience.
-
-## Features
-
-✨ **Modern Design**
-
-- Dark professional theme with pink/magenta accents
-- Fully responsive (desktop, tablet, mobile)
-- Smooth animations and transitions
-- High-quality visual hierarchy
-
-🎯 **Complete Sections**
-
-- **Hero Section**: Eye-catching introduction with professional portrait
-- **About Section**: Professional background and expertise overview
-- **Experience**: Timeline of professional roles and achievements
-- **Skills**: Categorized technical competencies
-- **Certifications**: Professional credentials
-- **Education**: Academic background
-- **Contact**: Multiple contact methods and contact form
-- **Footer**: Quick navigation and social links
-
-🔧 **Technical Features**
-
-- Semantic HTML for accessibility and SEO
-- TypeScript for type safety
-- Tailwind CSS for utility-first styling
-- Reusable React components
-- Lucide React icons
-- Smooth scrolling and navigation
-- Mobile-first responsive design
-- Contact form with validation
-- Social media integration
+A professional portfolio for **Hayti Kafley**, a Software Engineer at PNC specializing in backend engineering, observability, site reliability, and scalable systems. The site is built as a **"Reliability Console"** — a dark, developer-tool aesthetic where the portfolio presents itself like a monitored production system, with a live boot-console hero and instrumented section records.
 
 ## Tech Stack
 
-- **Frontend Framework**: React 18+ with TypeScript
-- **Build Tool**: Vite 5.4.3
-- **Styling**: Tailwind CSS 4.x
+- **Framework**: React 19 + TypeScript
+- **Build tool**: Vite 5.4
+- **Styling**: Tailwind CSS 3 with **shadcn/ui** components and **daisyUI** themes
 - **Icons**: Lucide React
-- **Package Manager**: npm
+- **Fonts**: Space Grotesk + JetBrains Mono (self-hosted via Fontsource)
+- **Package manager**: npm
 
 ## Installation & Setup
 
 ### Prerequisites
 
-- Node.js v20+
+- Node.js 20+
 - npm 10+
 
 ### Getting Started
 
-1. **Install Dependencies**
+1. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-2. **Start Development Server**
+2. **Start the development server**
 
    ```bash
    npm run dev
    ```
 
-   The site will be available at `http://localhost:5173/`
+   The site will be available at `http://localhost:5173/` (Vite auto-selects a new port if 5173 is in use).
 
-3. **Build for Production**
+3. **Build for production**
 
    ```bash
    npm run build
    ```
 
-   Compiled files will be in the `dist/` directory
+   Compiled files are written to the `dist/` directory.
 
-4. **Preview Production Build**
+4. **Preview the production build**
+
    ```bash
    npm run preview
    ```
@@ -83,142 +53,37 @@ A modern, dark-themed professional portfolio website built with React, TypeScrip
 ```
 src/
 ├── components/
-│   ├── Navbar.tsx           # Navigation bar with mobile menu
-│   ├── Hero.tsx             # Hero section with introduction
-│   ├── About.tsx            # About section
-│   ├── Experience.tsx       # Professional experience timeline
+│   ├── Navbar.tsx           # Fixed console navbar with mobile menu
+│   ├── Hero.tsx             # Hero with boot-console typewriter
+│   ├── About.tsx            # About section + instrumented profile card
+│   ├── Experience.tsx       # Professional experience (service records)
 │   ├── Skills.tsx           # Technical skills by category
-│   ├── Certifications.tsx   # Professional certifications
+│   ├── Certifications.tsx   # Professional credentials
 │   ├── Education.tsx        # Educational background
-│   ├── Contact.tsx          # Contact form and info
-│   ├── Footer.tsx           # Footer with links
-│   ├── Button.tsx           # Reusable button component
-│   └── SocialLinks.tsx      # Social media icons
-├── App.tsx                  # Main app component
-├── App.css                  # App-specific styles
-├── index.css                # Global styles with Tailwind
+│   ├── Contact.tsx          # Contact channels + message form
+│   ├── Footer.tsx           # Footer with social + status line
+│   ├── SectionShell.tsx     # Shared section layout wrapper
+│   └── ui/                  # shadcn/ui primitives (Button, Card, Input, ...)
+├── lib/utils.ts             # cn() class-merge utility
+├── index.css                # Global styles, tokens, utilities
+├── App.tsx                  # Main app composition
 └── main.tsx                 # React entry point
 
-public/                       # Static assets
-index.html                    # HTML entry point
-tailwind.config.js           # Tailwind configuration
-postcss.config.js            # PostCSS configuration
-vite.config.ts               # Vite configuration
+public/                       # Static assets (favicon, icons)
+index.html                    # HTML entry point (carries the design contract)
+tailwind.config.js            # Tailwind + daisyUI theme config
+vite.config.ts                # Vite configuration
 ```
-
-## Customization
-
-### Personal Information
-
-Edit the component files to update:
-
-- Social links (LinkedIn, GitHub, Email)
-- Professional experience
-- Skills and technologies
-- Education details
-- Contact information
-
-### Styling
-
-- **Colors**: Update `tailwind.config.js` for custom color scheme
-- **Animations**: Modify `src/index.css` for animation preferences
-- **Typography**: Adjust font sizes in component classes
-
-### Images
-
-Replace professional portrait URLs in:
-
-- [Hero.tsx](src/components/Hero.tsx) - Main profile image
-- [About.tsx](src/components/About.tsx) - Secondary portrait
-
-### Contact Form
-
-The contact form in [Contact.tsx](src/components/Contact.tsx) currently shows simulated success/error states. To integrate with an email service, update the `handleSubmit` function with your preferred backend solution (Formspree, Netlify Forms, custom backend, etc.).
-
-## Colors & Theme
-
-**Color Palette**:
-
-- Background: `#1a1a1a` (Dark charcoal)
-- Cards: `#252525` (Slightly lighter)
-- Accent: `#ff1493` (Bright pink)
-- Text: `#ffffff` (White), `#e5e5e5` (Light gray), `#a0a0a0` (Medium gray)
-
-## Responsive Design
-
-The portfolio is fully responsive with breakpoints at:
-
-- Mobile: < 640px
-- Tablet: 640px - 1024px
-- Desktop: > 1024px
-
-Mobile menu appears automatically on smaller screens.
-
-## Performance
-
-- Fast loading with Vite's instant HMR
-- Optimized images with lazy loading ready
-- Minimal CSS footprint with Tailwind CSS
-- Tree-shaking of unused utilities
-
-## SEO
-
-The portfolio includes:
-
-- Semantic HTML structure
-- Meta descriptions and Open Graph tags
-- Proper heading hierarchy
-- Alt text for images
-- Keyboard navigation support
-
-## Accessibility
-
-- Semantic HTML elements
-- Proper color contrast ratios
-- Keyboard navigable
-- Focus states on interactive elements
-- ARIA labels for icons
-
-## Development Tips
-
-### Adding Animations
-
-Animations are defined in [src/index.css](src/index.css). Add the animation name to component classes:
-
-```tsx
-<div className="animate-fadeInUp">Content</div>
-```
-
-### Creating Components
-
-All components follow the same pattern with React.FC typing:
-
-```tsx
-import React from 'react';
-
-export const ComponentName: React.FC = () => {
-  return (...)
-};
-```
-
-### Color References
-
-Use Tailwind classes for consistency:
-
-- Primary color: `text-[#ff1493]`, `bg-[#ff1493]`
-- Dark bg: `bg-[#1a1a1a]`
-- Cards: `bg-[#252525]`
-- Borders: `border-[#333333]`
 
 ## Troubleshooting
 
-### Port Already in Use
+### Port already in use
 
-If port 5173 is in use, Vite will automatically select the next available port.
+If port 5173 is occupied, Vite automatically selects the next available port — check the terminal output for the active URL.
 
-### Build Issues
+### Build errors
 
-If you encounter build errors:
+If you hit build issues:
 
 ```bash
 # Clean install
@@ -227,45 +92,12 @@ npm install
 npm run build
 ```
 
-## Deployment
+## Contact & Social
 
-### Vercel (Recommended)
-
-1. Push to GitHub
-2. Connect to Vercel
-3. Auto-deploys on push
-
-### Netlify
-
-1. Connect GitHub repository
-2. Build command: `npm run build`
-3. Publish directory: `dist`
-
-### Traditional Hosting
-
-1. Build locally: `npm run build`
-2. Upload `dist/` folder to server
-3. Configure server for SPA (rewrite all routes to index.html)
-
-## Browser Support
-
-- Chrome/Edge (latest 2 versions)
-- Firefox (latest 2 versions)
-- Safari (latest 2 versions)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+- **Email**: [hemankafley@gmail.com](mailto:hemankafley@gmail.com)
+- **LinkedIn**: [Hayti Kafley](https://www.linkedin.com/in/hayti-kafley-2b602615a/)
+- **GitHub**: [github.com/hemankafley](https://github.com/hemankafley)
 
 ## License
 
 © 2026 Hayti Kafley. All rights reserved.
-
-## Contact & Social
-
-- **Email**: [hayti.kafley@example.com](mailto:hayti.kafley@example.com)
-- **LinkedIn**: [https://www.linkedin.com/in/hayti-kafley-2b602615a/](https://https://www.linkedin.com/in/hayti-kafley-2b602615a/)
-- **GitHub**: [github.com/haytikafley](https://github.com/haytikafley)
-
----
-
-**Last Updated**: August 2026
-
-For questions or customization help, refer to the inline comments in component files or the Tailwind CSS and Vite documentation.
