@@ -36,8 +36,8 @@ export const Certifications: React.FC = () => {
   return (
     <SectionShell
       id="certifications"
-      title="Credentials"
-      tagline="~ certs --verify — validated professional credentials"
+      title="Certifications"
+      tagline="professional credentials and continuous learning"
     >
       <div className="grid gap-4 sm:grid-cols-2">
         {certifications.map((cert) => (

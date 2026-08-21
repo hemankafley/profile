@@ -4,34 +4,41 @@ import { ArrowRight, ExternalLink, Briefcase, Code, Mail } from "lucide-react"
 import { Button } from "./ui/button"
 import { cn } from "../lib/utils"
 
-/* Typewriter boot sequence — the whole "system" reports itself. */
-const bootLines = [
-  { text: "$ whoami", cls: "text-[#e7e9ec]" },
-  { text: "hayti.kafley — software engineer @ PNC", cls: "text-[#9fb4a8]" },
-  { text: "$ hayti --focus", cls: "text-[#e7e9ec]" },
+/* System-health readout — reads like an observability dashboard, but the
+   labels speak plainly so any visitor understands it at a glance. */
+const statusRows = [
+  { label: "role", value: "Software Engineer @ PNC", cls: "text-[#e7e9ec]" },
   {
-    text: "reliability · observability · backend · scalable systems",
+    label: "focus",
+    value: "backend · APIs · cloud · automation",
     cls: "text-[#f5b04c]",
   },
-  { text: "$ systemctl status hayti", cls: "text-[#e7e9ec]" },
-  { text: "● active (running) — since aug 2023", cls: "text-[#9fb4a8]" },
-  { text: "$ uptime", cls: "text-[#e7e9ec]" },
-  { text: "3+ yrs enterprise software · PNC Technology Program", cls: "text-[#c7cdd4]" },
-  { text: "$ signal --observability", cls: "text-[#e7e9ec]" },
   {
-    text: "grafana · dynatrace · bigpanda · slos — all nominal",
+    label: "experience",
+    value: "3+ years · enterprise production systems",
+    cls: "text-[#c7cdd4]",
+  },
+  {
+    label: "observability",
+    value: "Grafana · Dynatrace · BigPanda · SLOs",
     cls: "text-[#5bc3e0]",
   },
-  { text: "$ status", cls: "text-[#e7e9ec]" },
   {
-    text: "OK — building systems that hold under load",
+    label: "stack",
+    value: "Java · Python · AWS · Ansible · ServiceNow",
+    cls: "text-[#c7cdd4]",
+  },
+  {
+    label: "status",
+    value: "Available for Software Engineer · SRE · Platform roles",
     cls: "text-[#4caf7d]",
+    ok: true,
   },
 ]
 
 export const Hero: React.FC = () => {
   const [visible, setVisible] = React.useState(0)
-  const [typed, setTyped] = React.useState(false)
+  const [done, setDone] = React.useState(false)
 
   React.useEffect(() => {
     let cancelled = false
@@ -39,13 +46,13 @@ export const Hero: React.FC = () => {
     const t = setInterval(() => {
       if (cancelled) return
       i += 1
-      if (i <= bootLines.length) {
+      if (i <= statusRows.length) {
         setVisible(i)
       } else {
         clearInterval(t)
-        setTyped(true)
+        setDone(true)
       }
-    }, 240)
+    }, 320)
     return () => {
       cancelled = true
       clearInterval(t)
@@ -108,7 +115,7 @@ export const Hero: React.FC = () => {
                 className="h-11 rounded-md font-mono text-sm border-[#2a313a] text-[#c7cdd4] hover:bg-white/5 hover:text-[#e7e9ec]"
               >
                 <a href="#contact">
-                  open an sre channel <ExternalLink className="size-4" />
+                  Let's Connect <ExternalLink className="size-4" />
                 </a>
               </Button>
             </div>
@@ -129,7 +136,7 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Right — boot console */}
+          {/* Right — system health readout */}
           <div className="lg:pl-4">
             <div className="console-panel overflow-hidden">
               <div className="flex items-center justify-between border-b border-[#23292f] bg-[#0e1115] px-4 py-3">
@@ -138,34 +145,44 @@ export const Hero: React.FC = () => {
                   <span className="size-2.5 rounded-full bg-[#3a444f]" />
                   <span className="size-2.5 rounded-full bg-[#3a444f]" />
                 </div>
-                <span className="font-mono text-xs text-[#6c757f]">
-                  hayti@kafley: ~
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="size-1.5 rounded-full bg-[#4caf7d]" />
+                  <span className="font-mono text-xs text-[#6c757f]">
+                    system health · hayti@kafley
+                  </span>
+                </div>
               </div>
 
-              <div className="min-h-[300px] space-y-1.5 bg-[#0a0c0e] p-5 font-mono text-[13px] leading-relaxed">
-                {bootLines.map((line, i) => {
-                  if (i >= visible) {
-                    return i === visible ? (
-                      <span key={i} className="inline-block">
-                        <span className="animate-cursor-blink text-[#f5b04c]">
-                          ▊
-                        </span>
-                      </span>
-                    ) : null
-                  }
+              <div className="min-h-[280px] bg-[#0a0c0e] p-6 font-mono text-[13px] leading-relaxed">
+                {statusRows.map((row, i) => {
+                  if (i >= visible) return null
                   return (
-                    <p key={i} className={cn("whitespace-pre-wrap", line.cls)}>
-                      {line.text}
-                    </p>
+                    <div
+                                          key={row.label}
+                                          className="flex items-baseline gap-4 py-1.5"
+                                        >
+                      <span className="w-28 shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-[#8b95a1]">
+                        {row.label}
+                      </span>
+                      <span className={cn("flex-1", row.cls)}>
+                        <span className="text-[#e7e9ec]">{row.value}</span>
+                      </span>
+                    </div>
                   )
                 })}
-                {typed && (
-                  <span className="inline-block">
-                    <span className="animate-cursor-blink text-[#f5b04c]">
-                      ▊
+
+                {/* Blinking cursor keeps the "live system" feel */}
+                {(done || visible < statusRows.length) && (
+                  <div className="flex items-baseline gap-4 py-1.5">
+                    <span className="w-28 shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-[#6b757f]">
+                      prompt
                     </span>
-                  </span>
+                    <span className="inline-block">
+                      <span className="animate-cursor-blink text-[#f5b04c]">
+                        ▊
+                      </span>
+                    </span>
+                  </div>
                 )}
               </div>
             </div>
