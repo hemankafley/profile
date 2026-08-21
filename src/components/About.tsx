@@ -1,96 +1,95 @@
-import React from "react";
-import { Button } from "./Button";
+import * as React from "react"
+import { Download, Terminal } from "lucide-react"
+
+import { SectionShell } from "./SectionShell"
+import { Button } from "./ui/button"
+
+const focusAreas = [
+  "Backend & frontend development with Java, Python, JavaScript, and TypeScript",
+  "API design, integrations, and ServiceNow platform expertise",
+  "Observability, monitoring (Grafana, Dynatrace), and reliability engineering",
+  "Automation, CI/CD pipelines, and enterprise software delivery",
+  "Cloud technologies (AWS), containerization, and infrastructure automation",
+]
+
+const profileRows = [
+  { label: "role", value: "Software Engineer @ PNC" },
+  { label: "languages", value: "Java · Python · TS · C++ · C#" },
+  { label: "runtime", value: "React · Node.js · REST APIs" },
+  { label: "cloud", value: "AWS · Docker · Kubernetes" },
+  { label: "observability", value: "Grafana · Dynatrace · BigPanda" },
+  { label: "status", value: "building systems that scale" },
+]
 
 export const About: React.FC = () => {
-  const secondaryImageUrl = "/aboutme.png";
-
   return (
-    <section
+    <SectionShell
       id="about"
-      className="py-20 md:py-28 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#1f1f1f]"
+      title="About"
+      tagline="~ whoami — the engineer behind the uptime"
     >
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left Image */}
-          <div className="hidden md:flex items-center justify-center order-2 md:order-1 animate-fadeInLeft">
-            <div className="relative">
-              {/* Glow Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#3b82f6] to-[#60a5fa] rounded-2xl blur-3xl opacity-20" />
+      <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
+        {/* Narrative */}
+        <div className="space-y-5 text-base leading-relaxed text-[#c7cdd4]">
+          <p>
+            I'm a Software Engineer with a passion for building robust,
+            scalable systems that make a real impact. My expertise spans
+            backend development, frontend technologies, and the full spectrum
+            of modern application development.
+          </p>
+          <p>At PNC, I work on application development and backend engineering, focusing on:</p>
 
-              {/* Image Card */}
-              <div className="relative bg-[#252525] border border-[#333333] rounded-2xl p-1">
-                <img
-                  src={secondaryImageUrl}
-                  alt="Professional headshot"
-                  className="w-full aspect-[3/4] object-cover rounded-xl"
-                />
-              </div>
-            </div>
+          <ul className="space-y-2.5">
+            {focusAreas.map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <span className="mt-[3px] font-mono text-[#f5b04c]">▸</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p>
+                      I'm driven by a commitment to write clean, maintainable code and
+                      build systems that engineers can trust.
+                    </p>
+                  </div>
+
+        {/* Instrumented profile card */}
+        <div className="console-panel overflow-hidden">
+          <div className="flex items-center gap-2 border-b border-[#23292f] bg-[#0e1115] px-4 py-3">
+            <Terminal className="size-4 text-[#f5b04c]" />
+            <span className="font-mono text-[13px] text-[#e7e9ec]">
+              hayti.profile
+            </span>
           </div>
-
-          {/* Right Content */}
-          <div className="space-y-6 order-1 md:order-2 animate-fadeInRight">
-            <h2 className="section-heading">Who I Am?</h2>
-
-            <p className="text-gray-400 leading-relaxed">
-              I'm a Software Engineer with a passion for building robust,
-              scalable systems that make a real impact. My expertise spans
-              backend development, frontend technologies, and the full spectrum
-              of modern application development.
-            </p>
-
-            <p className="text-gray-400 leading-relaxed">
-              At PNC, I work on application development and backend engineering,
-              focusing on:
-            </p>
-
-            <ul className="space-y-2 text-gray-400">
-              <li className="flex items-start gap-3">
-                <span className="text-[#3b82f6] font-bold">✓</span>
-                <span>
-                  Backend & Frontend Development with Java, Python, JavaScript,
-                  and TypeScript
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#3b82f6] font-bold">✓</span>
-                <span>
-                  API design, integrations, and ServiceNow platform expertise
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#3b82f6] font-bold">✓</span>
-                <span>
-                  Observability, monitoring (Grafana, Dynatrace), and
-                  reliability engineering
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#3b82f6] font-bold">✓</span>
-                <span>
-                  Automation, CI/CD pipelines, and enterprise software delivery
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#3b82f6] font-bold">✓</span>
-                <span>
-                  Cloud technologies (AWS), containerization, and infrastructure
-                  automation
-                </span>
-              </li>
-            </ul>
-
-            <p className="text-gray-400 leading-relaxed pt-4">
-              I'm driven by a commitment to write clean, maintainable code and
-              build systems that engineers can trust.
-            </p>
-
-            <div className="pt-6">
-              <Button variant="primary">Download Resume</Button>
-            </div>
+          <dl className="divide-y divide-[#23292f]">
+            {profileRows.map((row) => (
+              <div
+                key={row.label}
+                className="flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+              >
+                <dt className="shrink-0 font-mono text-xs tracking-wider text-[#8b95a1]">
+                  {row.label}
+                </dt>
+                <dd className="font-mono text-[13px] text-[#e7e9ec]">
+                  {row.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <div className="border-t border-[#23292f] px-4 py-3">
+            <Button
+                          asChild
+                          size="sm"
+                          className="h-9 w-full rounded-md font-mono text-xs bg-[#f5b04c] text-[#1a1205] hover:bg-[#f5b04c]/90"
+                        >
+                          <a href="mailto:hemankafley@gmail.com?subject=Resume%20request">
+                            <Download className="size-4" /> request resume.pdf
+                          </a>
+                        </Button>
           </div>
         </div>
       </div>
-    </section>
-  );
-};
+    </SectionShell>
+  )
+}

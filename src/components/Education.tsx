@@ -1,33 +1,29 @@
-import React from "react";
-import { BookOpen } from "lucide-react";
+import * as React from "react"
+import { GraduationCap } from "lucide-react"
+
+import { SectionShell } from "./SectionShell"
 
 export const Education: React.FC = () => {
   return (
-    <section
+    <SectionShell
       id="education"
-      className="py-20 md:py-28 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#1f1f1f]"
+      title="Education"
+      tagline="~ education --summary — foundation in computer science"
     >
-      <div className="max-w-6xl mx-auto">
-        <div className="space-y-4 mb-16">
-          <h2 className="section-heading">Education</h2>
-          <p className="text-gray-400 max-w-2xl">
-            Strong foundation in computer science and continuous learning
-          </p>
-        </div>
-
-        <div className="card-dark max-w-2xl flex items-start gap-6 animate-fadeInUp">
-          <div className="p-4 bg-[#1a1a1a] rounded-lg flex-shrink-0">
-            <BookOpen size={32} className="text-[#3b82f6]" />
+      <div className="console-panel max-w-2xl p-6 sm:p-8">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
+          <div className="flex size-12 shrink-0 items-center justify-center rounded-md border border-[#f5b04c]/40 bg-[#f5b04c]/10">
+            <GraduationCap className="size-6 text-[#f5b04c]" />
           </div>
-          <div className="flex-1">
-            <h3 className="text-2xl font-bold text-white mb-2">
+          <div className="space-y-2">
+            <h3 className="font-display text-xl font-medium text-[#e7e9ec]">
               Bachelor of Science in Computer Science
             </h3>
-            <p className="text-[#3b82f6] text-lg font-semibold mb-2">
+            <p className="font-mono text-[14px] text-[#f5b04c]">
               Miami University
             </p>
-            <p className="text-gray-400">May 2023</p>
-            <p className="text-gray-400 mt-3 leading-relaxed">
+            <p className="font-mono text-xs text-[#8b95a1]">May 2023</p>
+            <p className="pt-2 text-[15px] leading-relaxed text-[#c7cdd4]">
               Graduated with a strong foundation in software engineering,
               algorithms, systems design, and full-stack application
               development.
@@ -35,6 +31,6 @@ export const Education: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
-};
+    </SectionShell>
+  )
+}
