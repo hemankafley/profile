@@ -1,128 +1,136 @@
-import React from "react";
-import { Briefcase, Calendar } from "lucide-react";
+import * as React from "react"
+import { Calendar } from "lucide-react"
+
+import { SectionShell } from "./SectionShell"
+import { Separator } from "./ui/separator"
 
 interface ExperienceItem {
-  title: string;
-  company: string;
-  period: string;
-  description: string[];
-  technologies: string[];
+  title: string
+  company: string
+  period: string
+  serviceId: string
+  description: string[]
+  technologies: string[]
 }
 
+const experiences: ExperienceItem[] = [
+  {
+    title: "Software Engineer",
+    company: "PNC",
+    period: "August 2024 — Present",
+    serviceId: "SVC-02",
+    description: [
+      "Develop and maintain backend applications using Java and Python",
+      "Implement frontend features with React and TypeScript",
+      "Design and integrate APIs for enterprise systems",
+      "Collaborate on ServiceNow API implementations",
+      "Monitor application health using Grafana and Dynatrace",
+      "Participate in incident response and reliability engineering",
+    ],
+    technologies: [
+      "Java",
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "AWS",
+      "Grafana",
+      "Dynatrace",
+      "Docker",
+      "Kubernetes",
+    ],
+  },
+  {
+    title: "PNC Technology Development Program",
+    company: "PNC",
+    period: "August 2023 — August 2024",
+    serviceId: "SVC-01",
+    description: [
+      "Rotational program across multiple technical domains",
+      "Software Engineering: Backend development and system design",
+      "Technology Operations: Infrastructure and platform management",
+      "Site Reliability Engineering: Monitoring and incident response",
+      "Data Analysis: Data processing and insights generation",
+      "Enterprise Technology: Large-scale system integration",
+    ],
+    technologies: [
+      "Java",
+      "Python",
+      "React",
+      "AWS",
+      "Kubernetes",
+      "Ansible",
+      "BigPanda",
+      "SLOs",
+      "CI/CD",
+    ],
+  },
+]
+
 export const Experience: React.FC = () => {
-  const experiences: ExperienceItem[] = [
-    {
-      title: "Software Engineer",
-      company: "PNC",
-      period: "August 2024 - Present",
-      description: [
-        "Develop and maintain backend applications using Java and Python",
-        "Implement frontend features with React and TypeScript",
-        "Design and integrate APIs for enterprise systems",
-        "Collaborate on ServiceNow API implementations",
-        "Monitor application health using Grafana and Dynatrace",
-        "Participate in incident response and reliability engineering",
-      ],
-      technologies: [
-        "Java",
-        "Python",
-        "JavaScript",
-        "TypeScript",
-        "React",
-        "AWS",
-        "Grafana",
-        "Dynatrace",
-        "Docker",
-        "Kubernetes",
-      ],
-    },
-    {
-      title: "PNC Technology Development Program",
-      company: "PNC",
-      period: "August 2023 - August 2024",
-      description: [
-        "Rotational program across multiple technical domains",
-        "Software Engineering: Backend development and system design",
-        "Technology Operations: Infrastructure and platform management",
-        "Site Reliability Engineering: Monitoring and incident response",
-        "Data Analysis: Data processing and insights generation",
-        "Enterprise Technology: Large-scale system integration",
-      ],
-      technologies: [
-        "Java",
-        "Python",
-        "React",
-        "AWS",
-        "Kubernetes",
-        "Ansible",
-        "BigPanda",
-        "SLOs",
-        "CI/CD",
-      ],
-    },
-  ];
-
   return (
-    <section id="experience" className="py-20 md:py-28 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="space-y-4 mb-16">
-          <h2 className="section-heading">Professional Experience</h2>
-          <p className="text-gray-400 max-w-2xl">
-            Building scalable systems and driving impact through technical
-            excellence
-          </p>
-        </div>
-
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <div
-              key={index}
-              className="card-dark hover:border-[#3b82f6] hover:border-opacity-50 animate-fadeInUp"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
-                <div className="flex gap-4 items-start flex-1">
-                  <div className="p-3 bg-[#1a1a1a] rounded-lg">
-                    <Briefcase size={24} className="text-[#3b82f6]" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-white">
-                      {exp.title}
-                    </h3>
-                    <p className="text-[#3b82f6] font-semibold text-lg">
-                      {exp.company}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 text-gray-400 whitespace-nowrap">
-                  <Calendar size={18} />
-                  <span className="text-sm font-medium">{exp.period}</span>
-                </div>
-              </div>
-
-              <div className="space-y-3 mb-4">
-                {exp.description.map((item, i) => (
-                  <p key={i} className="text-gray-400 flex gap-3">
-                    <span className="text-[#3b82f6] flex-shrink-0 mt-1">▸</span>
-                    <span>{item}</span>
+    <SectionShell
+      id="experience"
+      title="Experience"
+      tagline="~ journalctl --unit hayti --since 2023 — a service record"
+    >
+      <div className="space-y-6">
+        {experiences.map((exp) => (
+          <article key={exp.serviceId} className="console-panel overflow-hidden">
+            {/* Header row */}
+            <div className="flex flex-col gap-3 border-b border-[#23292f] bg-[#0e1115] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3">
+                <span className="status-dot pulse bg-[#f5b04c]" />
+                <div>
+                  <h3 className="font-display text-lg font-medium text-[#e7e9ec]">
+                    {exp.title}
+                  </h3>
+                  <p className="font-mono text-[13px] text-[#f5b04c]">
+                    {exp.company} · {exp.serviceId}
                   </p>
-                ))}
+                </div>
               </div>
-
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-[#333333]">
-                {exp.technologies.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1 bg-[#1a1a1a] text-gray-300 rounded-full text-sm border border-[#333333] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-all"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              <div className="flex items-center gap-2 font-mono text-xs text-[#8b95a1]">
+                <Calendar className="size-3.5" />
+                <span>{exp.period}</span>
               </div>
             </div>
-          ))}
-        </div>
+
+            {/* Body */}
+            <div className="px-5 py-5 sm:px-6 sm:py-6">
+              <ul className="space-y-2.5">
+                {exp.description.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[15px] leading-relaxed text-[#c7cdd4]"
+                  >
+                    <span className="mt-[3px] font-mono text-[#f5b04c]">▸</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Tech stack */}
+            <div className="border-t border-[#23292f] px-5 py-3 sm:px-6">
+              <div className="flex flex-wrap gap-2">
+                {exp.technologies.map((tech) => (
+                                  <span
+                                    key={tech}
+                                    className="badge badge-outline font-mono text-xs font-normal text-[#c7cdd4] transition-colors duration-200 hover:border-[#f5b04c]/50 hover:text-[#f5b04c]"
+                                  >
+                                    {tech}
+                                  </span>
+                                ))}
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
-    </section>
-  );
-};
+
+      {experiences.length > 1 && (
+        <Separator className="my-10" />
+      )}
+    </SectionShell>
+  )
+}

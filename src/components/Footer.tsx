@@ -1,98 +1,59 @@
-import React from "react";
-import {
-  Code as GithubIcon,
-  Briefcase as LinkedinIcon,
-  Mail,
-} from "lucide-react";
+import * as React from "react"
+import { Code as GithubIcon, Briefcase as LinkedinIcon, Mail } from "lucide-react"
 
-export const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
+const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-[#333333] bg-[#1a1a1a] py-12 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Branding */}
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-2">Hayti Kafley</h3>
-            <p className="text-gray-400">Software Engineer</p>
+    <footer className="border-t border-[#23292f] bg-[#0e1115]">
+      <div className="mx-auto max-w-6xl px-6 py-10">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          {/* Mark */}
+          <div className="inline-flex items-center gap-2 font-mono text-sm">
+            <span className="status-dot pulse bg-[#f5b04c]" />
+            <span className="text-[#e7e9ec]">© {currentYear} Hayti Kafley</span>
+            <span className="hidden text-[#f5b04c] sm:inline">:~$</span>
           </div>
 
-          {/* Social Links */}
-          <div>
-            <p className="text-gray-400 font-semibold text-sm mb-4 uppercase tracking-widest">
-              Connect
-            </p>
-            <div className="flex gap-4">
-              <a
-                href="https://www.linkedin.com/in/hayti-kafley-2b602615a/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-[#3b82f6] transition-colors"
-                aria-label="LinkedIn"
-              >
-                <LinkedinIcon size={20} />
-              </a>
-              <a
-                href="https://github.com/hemankafley"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-[#3b82f6] transition-colors"
-                aria-label="GitHub"
-              >
-                <GithubIcon size={20} />
-              </a>
-              <a
-                href="mailto:hemankafley@gmail.com"
-                className="text-gray-400 hover:text-[#3b82f6] transition-colors"
-                aria-label="Email"
-              >
-                <Mail size={20} />
-              </a>
-            </div>
+          {/* Socials */}
+          <div className="flex items-center gap-2">
+            <a
+              href="https://www.linkedin.com/in/hayti-kafley-2b602615a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="inline-flex size-9 items-center justify-center rounded-md border border-[#2a313a] bg-[#111418] text-[#8b95a1] transition-colors hover:border-[#f5b04c]/60 hover:text-[#f5b04c]"
+            >
+              <LinkedinIcon className="size-4" />
+            </a>
+            <a
+              href="https://github.com/hemankafley"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="inline-flex size-9 items-center justify-center rounded-md border border-[#2a313a] bg-[#111418] text-[#8b95a1] transition-colors hover:border-[#f5b04c]/60 hover:text-[#f5b04c]"
+            >
+              <GithubIcon className="size-4" />
+            </a>
+            <a
+              href="mailto:hemankafley@gmail.com"
+              aria-label="Email"
+              className="inline-flex size-9 items-center justify-center rounded-md border border-[#2a313a] bg-[#111418] text-[#8b95a1] transition-colors hover:border-[#f5b04c]/60 hover:text-[#f5b04c]"
+            >
+              <Mail className="size-4" />
+            </a>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <p className="text-gray-400 font-semibold text-sm mb-4 uppercase tracking-widest">
-              Quick Links
-            </p>
-            <div className="space-y-2">
-              <a
-                href="#home"
-                className="block text-gray-400 hover:text-[#3b82f6] transition-colors text-sm"
-              >
-                Home
-              </a>
-              <a
-                href="#about"
-                className="block text-gray-400 hover:text-[#3b82f6] transition-colors text-sm"
-              >
-                About
-              </a>
-              <a
-                href="#experience"
-                className="block text-gray-400 hover:text-[#3b82f6] transition-colors text-sm"
-              >
-                Experience
-              </a>
-              <a
-                href="#contact"
-                className="block text-gray-400 hover:text-[#3b82f6] transition-colors text-sm"
-              >
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-[#333333] pt-8">
-          <p className="text-center text-gray-500 text-sm">
-            © {currentYear} Hayti Kafley. All rights reserved.
+          {/* Status line */}
+          <p className="font-mono text-xs text-[#8b95a1]">
+            <span className="text-[#4caf7d]">●</span> uptime: software @ PNC
+            · since 2023 ·{" "}
+            <span className="text-[#e7e9ec]">all systems nominal</span>
           </p>
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
+
+export { Footer }
